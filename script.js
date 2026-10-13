@@ -90,10 +90,10 @@ var DECOR = {
   folio: function (g) {
     return g
       ? dc('CAP', 70, 5, 76, 'a', 10) + dc('STAR', 7, 20, 24, 'b', -8, 0.4) + dc('SP', 88, 46, 26, 'p', 0, 0.8) +
-        dc('SCR', 5, 72, 86, 'a', -12, 0.2) + dc('DOT', 92, 30, 10, 'a') + dc('RING', 9, 52, 22, 'p', 0, 0.6) + dc('STAR', 84, 70, 18, 'b', 14, 1.2)
+      dc('SCR', 5, 72, 86, 'a', -12, 0.2) + dc('DOT', 92, 30, 10, 'a') + dc('RING', 9, 52, 22, 'p', 0, 0.6) + dc('STAR', 84, 70, 18, 'b', 14, 1.2)
       : dc('BAL', 5, 14, 44, 'a', -8) + dc('BAL', 84, 12, 40, 'b', 9, 0.7) + dc('SP', 10, 56, 24, 'p', 0, 0.3) +
-        dc('SP', 85, 54, 28, 'a', 0, 0.9) + dc('DOT', 92, 40, 10, 'p') + dc('DOT', 6, 42, 12, 'b', 0, 0.5) +
-        dc('SQ', 70, 76, 58, 'p', -6, 0.4) + dc('RING', 9, 78, 22, 'b', 0, 1);
+      dc('SP', 85, 54, 28, 'a', 0, 0.9) + dc('DOT', 92, 40, 10, 'p') + dc('DOT', 6, 42, 12, 'b', 0, 0.5) +
+      dc('SQ', 70, 76, 58, 'p', -6, 0.4) + dc('RING', 9, 78, 22, 'b', 0, 1);
   },
   split: function (g) {
     return (g ? dc('CAP', 80, 8, 62, 'a', 10) : dc('BAL', 86, 8, 38, 'a', 8)) +
@@ -101,12 +101,12 @@ var DECOR = {
   },
   arch: function (g) {
     return (g ? dc('SCR', 4, 76, 74, 'a', -14) + dc('CAP', 80, 72, 56, 'a', 12)
-              : dc('BAL', 5, 66, 38, 'a', -8) + dc('BAL', 86, 64, 36, 'b', 9, 0.6)) +
+      : dc('BAL', 5, 66, 38, 'a', -8) + dc('BAL', 86, 64, 36, 'b', 9, 0.6)) +
       dc('SP', 14, 28, 22, 'p', 0, 0.3) + dc('SP', 82, 26, 24, 'a', 0, 0.8) + dc('STAR', 50, 4, 18, 'a', 0, 0.5) + dc('DOT', 22, 92, 10, 'b');
   },
   polaroid: function (g) {
     return (g ? dc('CAP', 3, 20, 70, 'a', -12) + dc('SCR', 74, 74, 80, 'a', 10)
-              : dc('BAL', 3, 24, 40, 'a', -8) + dc('BAL', 88, 20, 38, 'b', 9, 0.6)) +
+      : dc('BAL', 3, 24, 40, 'a', -8) + dc('BAL', 88, 20, 38, 'b', 9, 0.6)) +
       dc('SP', 8, 68, 24, 'p', 0, 0.3) + dc('STAR', 90, 52, 22, 'b', 12, 0.9) + dc('SQ', 70, 12, 56, 'p', -6, 0.4);
   }
 };
@@ -167,12 +167,12 @@ function cardHTML(d, mode) {
   return '<div class="card l-' + L + '"' + (mode === 'prev' ? ' data-v="' + (d.v || 'cover') + '"' : '') + '>' +
     '<section class="cover" data-cover>' + DECOR[L](grad) + edge(L, 'cv') + COVERS[L](P) + '</section>' +
     '<section class="inside" data-inside' + (open ? ' hidden' : '') + '>' + edge(L, 'in') + INDEC[L]() +
-      '<div class="in-side">' + (d.h ? '<div class="hl">' + esc(d.h) + '</div>' : '') +
-        '<div class="sign"><div><small>Dari</small><b>' + esc(d.s || '') + '</b></div>' +
-        '<div class="rl">' + esc(d.r || '') +
-        '<svg class="stamp" viewBox="0 0 80 80"><circle cx="40" cy="40" r="36" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 3"/><path fill="currentColor" d="M40 22l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z"/></svg></div></div>' +
-      '</div>' +
-      '<div class="in-main"><h2>Hai ' + esc(d.n || '') + ',</h2>' + paras + '</div>' +
+    '<div class="in-side">' + (d.h ? '<div class="hl">' + esc(d.h) + '</div>' : '') +
+    '<div class="sign"><div><small>Dari</small><b>' + esc(d.s || '') + '</b></div>' +
+    '<div class="rl">' + esc(d.r || '') +
+    '<svg class="stamp" viewBox="0 0 80 80"><circle cx="40" cy="40" r="36" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 3"/><path fill="currentColor" d="M40 22l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z"/></svg></div></div>' +
+    '</div>' +
+    '<div class="in-main"><h2>Hai ' + esc(d.n || '') + ',</h2>' + paras + '</div>' +
     '</section></div>';
 }
 
@@ -216,10 +216,10 @@ function builder() {
   }).join('');
 
   $('#root').innerHTML =
-  '<div class="wrap"><header class="hero">' + dc('SP', 66, 6, 34, 'a') + dc('STAR', 80, 40, 26, 'b', 14, 0.6) + dc('SQ', 58, 80, 64, 'c', -6, 0.3) +
-  '<h1>' + esc(site.headline) + ' <em>' + esc(site.highlight) + '<svg viewBox="0 0 200 12" preserveAspectRatio="none"><path d="M2 8q12-9 24 0t24 0 24 0 24 0 24 0 24 0 24 0 24 0 24 0"/></svg></em></h1>' +
-  '<p>' + esc(site.subtitle) + '</p></header>' +
-  '<div class="app"><div class="panel">' +
+    '<div class="wrap"><header class="hero">' + dc('SP', 66, 6, 34, 'a') + dc('STAR', 80, 40, 26, 'b', 14, 0.6) + dc('SQ', 58, 80, 64, 'c', -6, 0.3) +
+    '<h1>' + esc(site.headline) + ' <em>' + esc(site.highlight) + '<svg viewBox="0 0 200 12" preserveAspectRatio="none"><path d="M2 8q12-9 24 0t24 0 24 0 24 0 24 0 24 0 24 0 24 0 24 0"/></svg></em></h1>' +
+    '<p>' + esc(site.subtitle) + '</p></header>' +
+    '<div class="app"><div class="panel">' +
     '<div class="step"><i>1</i>Pilih acara</div><div class="seg">' + evBtns + '</div>' +
     '<div class="step"><i>2</i>Pilih motif &amp; warna</div><div class="tms" id="tms"></div>' +
     '<div class="step"><i>3</i>Untuk siapa?</div>' +
@@ -238,15 +238,15 @@ function builder() {
     '<label for="r">Peran (mis. Sahabatmu)</label><input type="text" id="r" maxlength="30">' +
     '<div class="row"><button class="btn" id="go" type="button">Buat link kartu &rarr;</button></div>' +
     '<div class="share" id="share"><label for="lk">Link kartu siap dikirim</label><input type="text" id="lk" readonly>' +
-      '<div class="row"><button class="btn" id="cp" type="button">Salin link</button>' +
-      '<a class="btn ghost" id="wa" target="_blank" rel="noopener" href="#">WhatsApp</a>' +
-      '<button class="btn ghost hide" id="nat" type="button">Bagikan</button>' +
-      '<button class="btn ghost" id="pvw" type="button">Coba sebagai penerima</button></div>' +
-      '<div class="hint" id="hn"></div></div>' +
-  '</div>' +
-  '<div class="pv"><div class="tabs"><button class="chip" data-v="cover" type="button">Sampul</button>' +
-  '<button class="chip" data-v="inside" type="button">Isi surat</button></div><div class="stage" id="pc"></div></div>' +
-  '</div></div>';
+    '<div class="row"><button class="btn" id="cp" type="button">Salin link</button>' +
+    '<a class="btn ghost" id="wa" target="_blank" rel="noopener" href="#">WhatsApp</a>' +
+    '<button class="btn ghost hide" id="nat" type="button">Bagikan</button>' +
+    '<button class="btn ghost" id="pvw" type="button">Coba sebagai penerima</button></div>' +
+    '<div class="hint" id="hn"></div></div>' +
+    '</div>' +
+    '<div class="pv"><div class="tabs"><button class="chip" data-v="cover" type="button">Sampul</button>' +
+    '<button class="chip" data-v="inside" type="button">Isi surat</button></div><div class="stage" id="pc"></div></div>' +
+    '</div></div>';
 
   var tms = $('#tms');
   Object.keys(CONFIG.themes).forEach(function (k) {
@@ -283,7 +283,7 @@ function builder() {
   $('#cp').onclick = function () {
     var i = $('#lk'), b = $('#cp'); i.select();
     function ok() { b.textContent = 'Tersalin ✓'; }
-    function legacy() { try { document.execCommand('copy'); ok(); } catch (x) {} }
+    function legacy() { try { document.execCommand('copy'); ok(); } catch (x) { } }
     if (navigator.clipboard) navigator.clipboard.writeText(i.value).then(ok, legacy); else legacy();
   };
   $('#pvw').onclick = function () { viewer(Object.assign({}, S)); };
@@ -330,10 +330,12 @@ function makeLink() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(o)
   })
-    .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+    .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
     .then(function (j) { showLink(location.origin + '/?c=' + j.id, true); })
-    .catch(function () {
+    .catch(function (err) {
+      console.error('Gagal simpan kartu:', err);
       showLink(location.href.split('#')[0].split('?')[0] + '#c=' + enc(o), false);
+      $('#hn').textContent = '⚠ Server gagal menyimpan kartu (' + err.message + '). Memakai link panjang yang bisa terpotong di WhatsApp.';
     });
 }
 
@@ -341,7 +343,7 @@ function showLink(url, short) {
   var msg = CONFIG.shareMessage.replace('{nama}', S.n || 'kamu').replace('{link}', url);
   $('#lk').value = url; $('#cp').textContent = 'Salin link';
   $('#wa').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
-  $('#nat').onclick = function () { navigator.share({ title: 'Kartu untuk ' + S.n, text: msg, url: url }).catch(function () {}); };
+  $('#nat').onclick = function () { navigator.share({ title: 'Kartu untuk ' + S.n, text: msg, url: url }).catch(function () { }); };
   $('#hn').textContent = (!short && S.p) ? 'Link lebih panjang karena membawa foto. Kirim lewat tombol salin atau WhatsApp agar tidak terpotong.' : '';
   $('#share').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 }
@@ -369,7 +371,7 @@ function confetti() {
 
 (function () {
   var q = location.search.match(/[?&]c=([A-Za-z0-9]+)/),
-      m = location.hash.match(/^#c=(.+)$/);
+    m = location.hash.match(/^#c=(.+)$/);
 
   function open(d) {
     if (d && CONFIG.themes[d.t]) viewer(Object.assign(defaults(), d)); else builder();
