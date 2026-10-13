@@ -5,29 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Pembuat Kartu Ucapan</title>
 
-  <!-- Google Fonts: Fraunces & DM Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <!-- Berkas styling terpisah -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- Kanvas konfeti (muncul saat kartu dibuka) -->
   <canvas id="fx" aria-hidden="true"></canvas>
-
-  <!-- Hiasan latar yang melayang -->
   <div class="bgdec" id="bgdec" aria-hidden="true"></div>
-
-  <!-- Seluruh halaman (form pembuat atau tampilan penerima) dirender ke sini -->
   <div id="root"></div>
 
-  <!-- 1. Konfigurasi nilai awal & tema -->
   <script src="config.js"></script>
-
-  <!-- 2. Logika form, pratinjau, dan berbagi link -->
   <script src="script.js"></script>
 </body>
 </html>

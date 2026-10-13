@@ -1,8 +1,3 @@
-/* ==========================================================================
-   TOKEN WARNA (semua solid, tanpa gradient)
-   Nilai di bawah hanya cadangan; tema asli diterapkan oleh script.js
-   dari config.js ke elemen <body>.
-   ========================================================================== */
 :root {
   --font-serif: "Fraunces", Georgia, serif;
   --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
@@ -68,9 +63,6 @@ body[data-mode="view"] {
   display: none !important;
 }
 
-/* ==========================================================================
-   DEKORASI SVG MELAYANG
-   ========================================================================== */
 .dc {
   position: absolute;
   display: block;
@@ -93,9 +85,6 @@ body[data-mode="view"] {
 .dc svg.o { fill: none; stroke: currentColor; }
 .dc .s { fill: none; stroke: currentColor; stroke-width: 1.5; }
 
-/* ==========================================================================
-   HALAMAN PEMBUAT
-   ========================================================================== */
 .wrap {
   max-width: 1080px;
   margin: 0 auto;
@@ -200,7 +189,6 @@ label .cnt {
   color: var(--mut);
 }
 
-/* Ukuran 16px pada input mobile penting untuk mencegah auto-zoom iOS Safari */
 input[type=text], textarea {
   width: 100%;
   font-family: inherit;
@@ -266,7 +254,6 @@ button:focus-visible, .drop:focus-within {
   transform: none;
 }
 
-/* Pilihan tema bermotif */
 .tms {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -301,7 +288,6 @@ button:focus-visible, .drop:focus-within {
   color: var(--panel);
 }
 
-/* Unggah foto */
 .drop {
   display: flex;
   align-items: center;
@@ -346,7 +332,6 @@ button:focus-visible, .drop:focus-within {
   padding: 0;
 }
 
-/* Tombol aksi */
 .btn {
   font: 700 0.92rem var(--font-sans);
   background: var(--c);
@@ -402,7 +387,6 @@ button:focus-visible, .drop:focus-within {
   from { opacity: 0; transform: translateY(8px); }
 }
 
-/* Pratinjau */
 .pv {
   position: sticky;
   top: 16px;
@@ -439,9 +423,6 @@ button:focus-visible, .drop:focus-within {
   transition: transform 0.2s ease;
 }
 
-/* ==========================================================================
-   KARTU (UMUM)
-   ========================================================================== */
 .card {
   max-width: 520px;
   width: 100%;
@@ -457,7 +438,6 @@ button:focus-visible, .drop:focus-within {
   display: none;
 }
 
-/* Sampul: warna solid + motif batik */
 .cover {
   position: relative;
   background-color: var(--c);
@@ -489,7 +469,6 @@ button:focus-visible, .drop:focus-within {
   z-index: 2;
 }
 
-/* Tumpal: deretan segitiga khas tepi kain batik */
 .tum {
   position: absolute;
   left: 0;
@@ -584,7 +563,6 @@ button:focus-visible, .drop:focus-within {
   box-shadow: 3px 3px 0 var(--k);
 }
 
-/* Isi surat */
 .inside {
   position: relative;
   background-color: var(--p);
@@ -649,9 +627,6 @@ button:focus-visible, .drop:focus-within {
   flex-shrink: 0;
 }
 
-/* ==========================================================================
-   TAMPILAN PENERIMA
-   ========================================================================== */
 .viewer {
   max-width: 680px;
   margin: 0 auto;
@@ -678,16 +653,12 @@ button:focus-visible, .drop:focus-within {
   justify-content: center;
 }
 
-/* ==========================================================================
-   BENTUK KARTU PER TEMA (folio | split | arch | polaroid)
-   ========================================================================== */
 [hidden] { display: none !important; }
 .in-side, .in-main { display: contents; }
 .hl { order: 1; }
 .in-main > * { order: 2; }
 .sign { order: 3; }
 
-/* Thumbnail pilihan tema */
 .tm small {
   font-weight: 500;
   opacity: 0.75;
@@ -698,10 +669,6 @@ button:focus-visible, .drop:focus-within {
 .tmc[data-l="split"] { border-radius: 4px; height: 30px; margin: 4px 0; }
 .tmc[data-l="polaroid"] { transform: rotate(-4deg); }
 
-/* ---------- 1) FOLIO / KLASIK (Kawung) ---------- */
-/* Gaya default sudah didefinisikan di bagian KARTU (UMUM) di atas */
-
-/* ---------- 2) SPLIT / LANSKAP (Parang) ---------- */
 .l-split { max-width: 640px; }
 .l-split .cover {
   display: grid;
@@ -779,7 +746,6 @@ button:focus-visible, .drop:focus-within {
   padding: 40px 28px;
 }
 
-/* Responsif untuk kartu Split */
 @container (max-width: 540px) {
   .l-split .cover { grid-template-columns: 1fr; min-height: auto; }
   .sp-photo { height: 260px; min-height: auto; clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
@@ -790,7 +756,6 @@ button:focus-visible, .drop:focus-within {
   .l-split .in-main { padding: 26px 20px 32px; }
 }
 
-/* ---------- 3) ARCH / LENGKUNG (Truntum) ---------- */
 .l-arch {
   max-width: 480px;
   border-radius: 240px 240px 14px 14px;
@@ -854,7 +819,6 @@ button:focus-visible, .drop:focus-within {
   gap: 6px;
 }
 
-/* Responsif untuk kartu Arch */
 @container (max-width: 460px) {
   .l-arch { border-radius: 170px 170px 12px 12px; }
   .l-arch .cover { padding: 50px 18px 44px; }
@@ -866,7 +830,6 @@ button:focus-visible, .drop:focus-within {
   .l-arch .inside { padding: 74px 20px 32px; }
 }
 
-/* ---------- 4) POLAROID (Songket) ---------- */
 .l-polaroid { border-radius: 4px; }
 .l-polaroid .cover { padding: 70px 26px 76px; }
 .l-polaroid .cover::before, .l-polaroid .cover::after { display: none; }
@@ -943,7 +906,6 @@ button:focus-visible, .drop:focus-within {
 .l-polaroid .sign { border-top: 0; flex-direction: row-reverse; }
 .l-polaroid .sign b { font: italic 600 2rem var(--font-serif); }
 
-/* Responsif untuk kartu Polaroid */
 @container (max-width: 440px) {
   .l-polaroid .cover { padding: 52px 16px 58px; }
   .pl { width: 220px; margin: 18px auto 18px; padding: 10px 10px 14px; }
@@ -955,11 +917,6 @@ button:focus-visible, .drop:focus-within {
   .l-polaroid .inside { padding: 50px 20px 50px; }
 }
 
-/* ==========================================================================
-   OPTIMASI MEDIA QUERIES UNTUK TAMPILAN MOBILE & HP
-   ========================================================================== */
-
-/* Tablet & Mobile Landscape (<= 860px) */
 @media (max-width: 860px) {
   .app {
     grid-template-columns: 1fr;
@@ -973,7 +930,6 @@ button:focus-visible, .drop:focus-within {
   }
 }
 
-/* Fallback untuk browser mobile yang belum mendukung container queries */
 @media (max-width: 600px) {
   .l-split .cover { grid-template-columns: 1fr; min-height: auto; }
   .sp-photo { height: 250px; min-height: auto; clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
@@ -1002,7 +958,6 @@ button:focus-visible, .drop:focus-within {
   .l-polaroid .inside { padding: 50px 20px 50px; }
 }
 
-/* Layar Smartphone Standar (<= 480px) */
 @media (max-width: 480px) {
   .wrap {
     padding: 16px 12px 42px;
@@ -1066,7 +1021,6 @@ button:focus-visible, .drop:focus-within {
     font-size: 1.4rem;
   }
 
-  /* Hilangkan rotasi stage pada mobile agar tidak keluar batas layar */
   .stage {
     padding: 12px 6px;
   }
@@ -1082,7 +1036,6 @@ button:focus-visible, .drop:focus-within {
     box-shadow: 4px 4px 0 var(--k);
   }
 
-  /* Sampul Folio Klasik di mobile */
   .cover {
     padding: 36px 16px 48px;
   }
@@ -1113,7 +1066,6 @@ button:focus-visible, .drop:focus-within {
     margin: 4px 0 10px;
   }
 
-  /* Isi surat di mobile */
   .inside {
     padding: 34px 18px 24px;
   }
@@ -1144,7 +1096,6 @@ button:focus-visible, .drop:focus-within {
     height: 52px;
   }
 
-  /* Bagian berbagi link di mobile */
   .share .row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1159,7 +1110,6 @@ button:focus-visible, .drop:focus-within {
     grid-column: 1 / -1;
   }
 
-  /* Tampilan penerima di mobile */
   .viewer {
     padding: 20px 12px calc(42px + env(safe-area-inset-bottom, 0px));
     gap: 16px;
@@ -1179,13 +1129,11 @@ button:focus-visible, .drop:focus-within {
     font-size: 0.96rem;
   }
 
-  /* Dekorasi latar di layar kecil dibuat lebih redup agar tidak mengganggu keterbacaan */
   .bgdec .dc {
     opacity: 0.35;
   }
 }
 
-/* Layar Ponsel Sangat Kecil (<= 360px: misal iPhone SE gen 1 atau layar ramping) */
 @media (max-width: 360px) {
   .wrap {
     padding: 12px 8px 36px;

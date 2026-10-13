@@ -1,8 +1,3 @@
-/* ==========================================================================
-   PEMBUAT KARTU UCAPAN - LOGIKA UTAMA
-   Membaca nilai awal & tema dari config.js (variabel CONFIG).
-   ========================================================================== */
-
 var $ = function (q) { return document.querySelector(q); };
 var S = defaults();
 
@@ -22,7 +17,6 @@ function esc(s) {
   });
 }
 
-/* ---------- Kode/dekode data kartu ke dalam link ---------- */
 function enc(o) {
   var b = new TextEncoder().encode(JSON.stringify(o)), s = '';
   b.forEach(function (x) { s += String.fromCharCode(x); });
@@ -37,9 +31,6 @@ function dec(t) {
   } catch (e) { return null; }
 }
 
-/* ==========================================================================
-   MOTIF BATIK (SVG ubin -> data URI, warna solid)
-   ========================================================================== */
 var PATS = {
   kawung: function (c) {
     return "<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48' fill='none' stroke='" + c + "' stroke-width='1.5'>" +
@@ -65,7 +56,6 @@ function pat(name, color) {
   return 'url("data:image/svg+xml,' + encodeURIComponent(PATS[name](color)) + '")';
 }
 
-/* Terapkan tema ke <body> (kartu & halaman mewarisi variabel ini) */
 function applyTheme(key) {
   var t = CONFIG.themes[key] || CONFIG.themes[CONFIG.theme], st = document.body.style;
   ['c', 'p', 'k', 'a', 'b'].forEach(function (x) { st.setProperty('--' + x, t[x]); });
@@ -74,9 +64,6 @@ function applyTheme(key) {
   st.setProperty('--pata', pat(t.pattern, t.a));
 }
 
-/* ==========================================================================
-   PERPUSTAKAAN HIASAN
-   ========================================================================== */
 var G = {
   SP: '<svg viewBox="0 0 24 24"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z"/></svg>',
   DOT: '<svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="5"/></svg>',
@@ -93,14 +80,12 @@ function dc(k, l, t, w, col, r, d) {
   return '<i class="dc" style="left:' + l + '%;top:' + t + '%;width:' + w + 'px;color:var(--' + col + ');--r:' + (r || 0) + 'deg;animation-delay:' + (d || 0) + 's">' + G[k] + '</i>';
 }
 
-/* Tumpal: deretan segitiga di tepi kartu */
 function tumpal(pos) {
   var s = '<svg class="tum ' + pos + '" viewBox="0 0 520 26" preserveAspectRatio="none">';
   for (var i = 0; i < 13; i++) s += '<path d="M' + (i * 40) + ' 26L' + (i * 40 + 20) + ' 4L' + (i * 40 + 40) + ' 26Z"/>';
   return s + '</svg>';
 }
 
-/* Hiasan sampul: berbeda untuk tiap bentuk kartu */
 var DECOR = {
   folio: function (g) {
     return g
@@ -126,7 +111,6 @@ var DECOR = {
   }
 };
 
-/* Hiasan di halaman isi surat */
 var INDEC = {
   folio: function () { return dc('SP', 88, 8, 26, 'c') + dc('DOT', 80, 13, 9, 'a', 0, 0.5) + dc('STAR', 93, 16, 16, 'b', 10, 1); },
   split: function () { return dc('SP', 92, 6, 22, 'c') + dc('DOT', 86, 12, 8, 'a', 0, 0.5); },
@@ -134,7 +118,6 @@ var INDEC = {
   polaroid: function () { return dc('STAR', 90, 14, 20, 'b', 12) + dc('DOT', 6, 12, 9, 'a'); }
 };
 
-/* Tepi kartu: tumpal (folio) atau pita tenun (polaroid) */
 function edge(L, where) {
   if (L === 'folio') return where === 'cv' ? tumpal('b') : tumpal('t');
   if (L === 'polaroid') return '<div class="bands t"></div><div class="bands bt"></div>';
@@ -146,28 +129,19 @@ function bgDecor() {
     dc('SQ', 3, 60, 70, 'c', -8, 0.3) + dc('DOT', 8, 86, 18, 'b', 0, 1) + dc('TRI', 94, 82, 26, 'a', 18, 0.6) + dc('SP', 48, 94, 26, 'c', 0, 1.4);
 }
 
-/* ==========================================================================
-   KARTU - 4 BENTUK BERBEDA (folio, split, arch, polaroid)
-   Bentuk dipilih dari "layout" pada tema di config.js
-   mode: 'prev' = pratinjau (sampul/isi bergantian), 'open' = tampilan penerima
-   ========================================================================== */
 var COVERS = {
-  /* Klasik: potret, foto lengkung di tengah */
   folio: function (P) {
     return '<div class="eb">' + P.tag + '</div><div class="fw"><div class="frame">' + P.photo + '</div>' + P.badge + '</div>' +
       '<div class="pre">' + P.pre + '</div><h1>' + P.name + '</h1>' + P.ms + P.btn;
   },
-  /* Lanskap: foto di kiri dengan potongan diagonal, teks di kanan */
   split: function (P) {
     return '<div class="sp-photo"><div class="sp-img">' + P.photo + '</div>' + P.badge + '</div>' +
       '<div class="sp-text"><div class="eb">' + P.tag + '</div><div class="pre">' + P.pre + '</div><h1>' + P.name + '</h1>' + P.ms + P.btn + '</div>';
   },
-  /* Lengkung: kartu berbentuk gerbang, foto bulat bermedalion */
   arch: function (P) {
     return '<div class="eb">' + P.tag + '</div><div class="ar-photo"><div class="ar-img">' + P.photo + '</div>' + P.badge + '</div>' +
       '<div class="pre">' + P.pre + '</div><h1>' + P.name + '</h1>' + P.ms + P.btn;
   },
-  /* Polaroid: foto bingkai putih miring dengan selotip di atas kain tenun */
   polaroid: function (P) {
     return '<div class="eb">' + P.tag + '</div><div class="pl"><i class="tape l"></i><i class="tape r"></i>' +
       '<div class="pl-img">' + P.photo + '</div>' + P.badge +
@@ -202,9 +176,6 @@ function cardHTML(d, mode) {
     '</section></div>';
 }
 
-/* ==========================================================================
-   MODE PENERIMA (saat link kartu dibuka)
-   ========================================================================== */
 function viewer(d) {
   document.title = 'Kartu untuk ' + (d.n || 'kamu');
   document.body.dataset.mode = 'view';
@@ -235,9 +206,6 @@ function viewer(d) {
   };
 }
 
-/* ==========================================================================
-   MODE PEMBUAT (form + pratinjau langsung)
-   ========================================================================== */
 function builder() {
   var site = CONFIG.site;
   document.title = site.title;
@@ -249,7 +217,7 @@ function builder() {
 
   $('#root').innerHTML =
   '<div class="wrap"><header class="hero">' + dc('SP', 66, 6, 34, 'a') + dc('STAR', 80, 40, 26, 'b', 14, 0.6) + dc('SQ', 58, 80, 64, 'c', -6, 0.3) +
-  '<h1>' + esc(site.headline) + ' <em>' + esc(site.highlight) + '<svg viewBox="0 0 200 12" preserveAspectRatio="none"><path d="M2 8q12-9 24 0t24 0 24 0 24 0 24 0 24 0 24 0 24 0"/></svg></em></h1>' +
+  '<h1>' + esc(site.headline) + ' <em>' + esc(site.highlight) + '<svg viewBox="0 0 200 12" preserveAspectRatio="none"><path d="M2 8q12-9 24 0t24 0 24 0 24 0 24 0 24 0 24 0 24 0 24 0"/></svg></em></h1>' +
   '<p>' + esc(site.subtitle) + '</p></header>' +
   '<div class="app"><div class="panel">' +
     '<div class="step"><i>1</i>Pilih acara</div><div class="seg">' + evBtns + '</div>' +
@@ -280,7 +248,6 @@ function builder() {
   '<button class="chip" data-v="inside" type="button">Isi surat</button></div><div class="stage" id="pc"></div></div>' +
   '</div></div>';
 
-  /* Kotak pilihan tema */
   var tms = $('#tms');
   Object.keys(CONFIG.themes).forEach(function (k) {
     var t = CONFIG.themes[k], b = document.createElement('button');
@@ -290,13 +257,11 @@ function builder() {
   });
   tms.onclick = function (e) { var b = e.target.closest('.tm'); if (b) { S.t = b.dataset.t; draw(); } };
 
-  /* Isian teks */
   ['n', 'd', 'm', 'h', 'l', 's', 'r'].forEach(function (k) {
     var el = $('#' + k); el.value = S[k] || '';
     el.oninput = function () { S[k] = el.value; draw(); };
   });
 
-  /* Ganti acara: ikut mengganti keterangan bawaan */
   document.querySelectorAll('[data-e]').forEach(function (b) {
     b.onclick = function () {
       var presets = Object.keys(CONFIG.events).map(function (k) { return CONFIG.events[k].milestone; });
@@ -307,7 +272,6 @@ function builder() {
   });
   document.querySelectorAll('.tabs [data-v]').forEach(function (b) { b.onclick = function () { S.v = b.dataset.v; draw(); }; });
 
-  /* Foto: klik atau seret */
   var ph = $('#ph'), dp = $('#drop');
   ph.onchange = function () { if (ph.files[0]) loadPhoto(ph.files[0]); };
   ['dragenter', 'dragover'].forEach(function (t) { dp.addEventListener(t, function (e) { e.preventDefault(); dp.classList.add('over'); }); });
@@ -315,7 +279,6 @@ function builder() {
   dp.addEventListener('drop', function (e) { var f = e.dataTransfer.files[0]; if (f && /^image\//.test(f.type)) loadPhoto(f); });
   $('#rm').onclick = function () { S.p = ''; ph.value = ''; draw(); };
 
-  /* Bagikan */
   $('#go').onclick = makeLink;
   $('#cp').onclick = function () {
     var i = $('#lk'), b = $('#cp'); i.select();
@@ -341,7 +304,6 @@ function draw() {
   $('#pc').innerHTML = cardHTML(S, 'prev');
 }
 
-/* Foto dipotong & dikecilkan agar link tetap ringan */
 function loadPhoto(file) {
   var r = new FileReader();
   r.onload = function () {
@@ -370,9 +332,6 @@ function makeLink() {
   $('#share').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 }
 
-/* ==========================================================================
-   KONFETI (warna solid mengikuti tema)
-   ========================================================================== */
 function confetti() {
   var c = $('#fx'), x = c.getContext('2d'), st = getComputedStyle(document.body);
   c.width = innerWidth; c.height = innerHeight;
@@ -394,9 +353,6 @@ function confetti() {
   })();
 }
 
-/* ==========================================================================
-   MULAI: jika ada data kartu di link -> tampilan penerima, jika tidak -> pembuat
-   ========================================================================== */
 (function () {
   var m = location.hash.match(/^#c=(.+)$/), d = m && dec(m[1]);
   if (d && CONFIG.themes[d.t]) viewer(Object.assign(defaults(), d)); else builder();

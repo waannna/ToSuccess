@@ -1,14 +1,4 @@
-/**
- * ==============================================================================
- * KONFIGURASI PEMBUAT KARTU UCAPAN (ULANG TAHUN & WISUDA) - TEMA NUSANTARA
- * ==============================================================================
- * Berkas ini hanya berisi NILAI AWAL (default) dan daftar tema.
- * Pengguna tetap mengisi kartu lewat form di website; nilai di bawah hanya
- * muncul sebagai isian awal. Semua teks & warna di sini bebas Anda ubah.
- */
-
 const CONFIG = {
-  // Teks halaman pembuat kartu
   site: {
     title: "Pembuat Kartu Ucapan",
     headline: "Bikin kartu ucapan yang",
@@ -16,13 +6,9 @@ const CONFIG = {
     subtitle: "Isi formnya, lihat hasilnya langsung, lalu kirim ke orang tersayang lewat satu link."
   },
 
-  // Acara awal: "birthday" atau "graduation"
   event: "birthday",
-
-  // Tema awal: "kawung", "parang", "truntum", atau "songket" (lihat daftar di bawah)
   theme: "kawung",
 
-  // Teks per jenis acara
   events: {
     birthday: {
       label: "Ulang Tahun",
@@ -38,13 +24,11 @@ const CONFIG = {
     }
   },
 
-  // Isian awal penerima
   recipient: {
     name: "",
-    titleDegree: "" // contoh: "S.Ds." (hanya tampil untuk wisuda)
+    titleDegree: ""
   },
 
-  // Isian awal pengirim
   sender: {
     name: "",
     role: ""
@@ -54,20 +38,8 @@ const CONFIG = {
 
   letter: [""],
 
-  // Pesan saat dibagikan. {nama} = nama penerima, {link} = link kartu
   shareMessage: "Ada kartu ucapan untuk {nama} 🎉 Buka di sini: {link}",
 
-  /**
-   * Daftar tema. Semua warna SOLID (tanpa gradient).
-   *  c  = warna utama sampul        p  = warna kertas / krem
-   *  k  = warna tinta gelap         a  = aksen emas / kuning
-   *  b  = aksen kedua               pc = warna motif di sampul (sedikit lebih terang dari c)
-   *  ip = warna motif di kertas isi (sangat halus)
-   *  pattern = "kawung" | "parang" | "truntum" | "songket"
-   *  layout  = BENTUK KARTU: "folio" (portret klasik) | "split" (lanskap terbelah) |
-   *            "arch" (lengkung / gerbang) | "polaroid" (foto polaroid + pita tenun)
-   *  shape   = nama bentuk yang tampil di bawah pilihan tema
-   */
   themes: {
     kawung: {
       label: "Kawung",
