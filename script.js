@@ -199,7 +199,7 @@ function viewer(d) {
   };
   $('#mk').onclick = function (e) {
     e.preventDefault();
-    history.replaceState(null, '', location.pathname + location.search);
+    history.replaceState(null, '', location.pathname);
     S = defaults();
     document.body.dataset.mode = '';
     builder();
@@ -322,13 +322,27 @@ function loadPhoto(file) {
 
 function makeLink() {
   var o = { e: S.e, t: S.t, n: S.n, d: S.d, m: S.m, s: S.s, r: S.r, h: S.h, l: S.l, p: S.p };
-  var url = location.href.split('#')[0] + '#c=' + enc(o);
-  var msg = CONFIG.shareMessage.replace('{nama}', S.n || 'kamu').replace('{link}', url);
   $('#share').classList.add('on');
+  $('#lk').value = 'Membuat link...';
+
+  fetch('/api/save', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(o)
+  })
+    .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+    .then(function (j) { showLink(location.origin + '/?c=' + j.id, true); })
+    .catch(function () {
+      showLink(location.href.split('#')[0].split('?')[0] + '#c=' + enc(o), false);
+    });
+}
+
+function showLink(url, short) {
+  var msg = CONFIG.shareMessage.replace('{nama}', S.n || 'kamu').replace('{link}', url);
   $('#lk').value = url; $('#cp').textContent = 'Salin link';
   $('#wa').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
   $('#nat').onclick = function () { navigator.share({ title: 'Kartu untuk ' + S.n, text: msg, url: url }).catch(function () {}); };
-  $('#hn').textContent = S.p ? 'Link lebih panjang karena membawa foto. Kirim lewat tombol salin atau WhatsApp agar tidak terpotong.' : '';
+  $('#hn').textContent = (!short && S.p) ? 'Link lebih panjang karena membawa foto. Kirim lewat tombol salin atau WhatsApp agar tidak terpotong.' : '';
   $('#share').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 }
 
@@ -354,6 +368,19 @@ function confetti() {
 }
 
 (function () {
-  var m = location.hash.match(/^#c=(.+)$/), d = m && dec(m[1]);
-  if (d && CONFIG.themes[d.t]) viewer(Object.assign(defaults(), d)); else builder();
+  var q = location.search.match(/[?&]c=([A-Za-z0-9]+)/),
+      m = location.hash.match(/^#c=(.+)$/);
+
+  function open(d) {
+    if (d && CONFIG.themes[d.t]) viewer(Object.assign(defaults(), d)); else builder();
+  }
+
+  if (q) {
+    fetch('/api/get?id=' + q[1])
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(open)
+      .catch(function () { open(null); });
+  } else {
+    open(m && dec(m[1]));
+  }
 })();
