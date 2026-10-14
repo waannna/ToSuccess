@@ -220,29 +220,63 @@ function builder() {
     '<h1>' + esc(site.headline) + ' <em>' + esc(site.highlight) + '<svg viewBox="0 0 200 12" preserveAspectRatio="none"><path d="M2 8q12-9 24 0t24 0 24 0 24 0 24 0 24 0 24 0 24 0 24 0"/></svg></em></h1>' +
     '<p>' + esc(site.subtitle) + '</p></header>' +
     '<div class="app"><div class="panel">' +
-    '<div class="step"><i>1</i>Pilih acara</div><div class="seg">' + evBtns + '</div>' +
-    '<div class="step"><i>2</i>Pilih motif &amp; warna</div><div class="tms" id="tms"></div>' +
-    '<div class="step"><i>3</i>Untuk siapa?</div>' +
-    '<label for="n">Nama penerima</label><input type="text" id="n" maxlength="40">' +
-    '<div id="dw"><label for="d">Gelar (mis. S.T., S.Ds.)</label><input type="text" id="d" maxlength="20"></div>' +
-    '<label for="m">Keterangan (mis. 24 Tahun / Angkatan 2026)</label><input type="text" id="m" maxlength="30">' +
-    '<label for="ph">Foto penerima</label>' +
-    '<label class="drop" id="drop" for="ph"><span class="th" id="th">+</span><span><b>Unggah foto</b><small>Klik atau seret ke sini</small></span></label>' +
-    '<input id="ph" type="file" accept="image/*" hidden><button class="link hide" id="rm" type="button">Hapus foto</button>' +
-    '<div class="step"><i>4</i>Tulis pesan</div>' +
-    '<label for="h">Kutipan pembuka</label><input type="text" id="h" maxlength="90">' +
-    '<label for="l">Isi surat <span class="cnt" id="lc"></span></label><textarea id="l" maxlength="900"></textarea>' +
-    '<div class="hint">Pisahkan paragraf dengan satu baris kosong.</div>' +
-    '<div class="step"><i>5</i>Dari siapa?</div>' +
-    '<label for="s">Nama pengirim</label><input type="text" id="s" maxlength="40">' +
-    '<label for="r">Peran (mis. Sahabatmu)</label><input type="text" id="r" maxlength="30">' +
-    '<div class="row"><button class="btn" id="go" type="button">Buat link kartu &rarr;</button></div>' +
-    '<div class="share" id="share"><label for="lk">Link kartu siap dikirim</label><input type="text" id="lk" readonly>' +
-    '<div class="row"><button class="btn" id="cp" type="button">Salin link</button>' +
-    '<a class="btn ghost" id="wa" target="_blank" rel="noopener" href="#">WhatsApp</a>' +
-    '<button class="btn ghost hide" id="nat" type="button">Bagikan</button>' +
-    '<button class="btn ghost" id="pvw" type="button">Coba sebagai penerima</button></div>' +
-    '<div class="hint" id="hn"></div></div>' +
+
+    '<div class="form-sec">' +
+      '<div class="sec-title"><span class="sec-num">1</span><div><h3>Pilih Acara &amp; Konsep</h3><p>Tentukan momen yang ingin kamu rayakan</p></div></div>' +
+      '<label class="lbl-mini">Pilih Jenis Acara</label>' +
+      '<div class="seg ev-seg">' + evBtns + '</div>' +
+      '<label class="lbl-mini" style="margin-top:14px;">Pilihan Motif &amp; Bentuk Kartu</label>' +
+      '<div class="tms" id="tms"></div>' +
+    '</div>' +
+
+    '<div class="form-sec" data-target-tab="cover">' +
+      '<div class="sec-title"><span class="sec-num">2</span><div><h3>Sampul Depan Kartu</h3><p>Atur nama penerima, foto, dan pin lencana</p></div><span class="sec-badge">Sampul</span></div>' +
+      '<div class="field-row">' +
+        '<div class="field-col" style="flex:2"><label for="n">Nama Penerima</label><input type="text" id="n" maxlength="40" placeholder="Nama orang tersayang"></div>' +
+        '<div class="field-col hide" id="dw" style="flex:1"><label for="d">Gelar</label><input type="text" id="d" maxlength="20" placeholder="Mis. S.Kom."></div>' +
+      '</div>' +
+      '<div class="field-col" style="margin-top:10px;">' +
+        '<label for="m" id="m-lbl">Keterangan Khusus <span class="badge-tag">Lencana Foto</span></label>' +
+        '<input type="text" id="m" maxlength="35" placeholder="Contoh: 24 Tahun">' +
+        '<div class="hint" id="m-hint">Angka otomatis jadi pin lencana emas di foto sampul!</div>' +
+      '</div>' +
+      '<div class="field-col" style="margin-top:12px;">' +
+        '<label for="ph">Foto Penerima <span class="cnt">(Opsional)</span></label>' +
+        '<label class="drop" id="drop" for="ph"><span class="th" id="th">+</span><span><b>Unggah foto spesial</b><small>Klik untuk pilih atau seret foto ke sini</small></span></label>' +
+        '<input id="ph" type="file" accept="image/*" hidden><button class="link hide" id="rm" type="button">Hapus foto</button>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="form-sec" data-target-tab="inside">' +
+      '<div class="sec-title"><span class="sec-num">3</span><div><h3>Halaman Isi Surat</h3><p>Pesan mendalam dan tanda tangan pengirim</p></div><span class="sec-badge">Isi Surat</span></div>' +
+      '<div class="field-col">' +
+        '<label for="h">Kutipan Pembuka (Highlight)</label>' +
+        '<input type="text" id="h" maxlength="90" placeholder="Kutipan berkesan di dalam kartu...">' +
+        '<div class="hint">Tampil sebagai kutipan besar bercetak miring di dalam kartu.</div>' +
+      '</div>' +
+      '<div class="field-col" style="margin-top:12px;">' +
+        '<div class="label-with-action"><label for="l">Isi Surat <span class="cnt" id="lc">0/900</span></label>' +
+        '<button type="button" class="btn-tpl" id="btn-tpl">💡 Pakai Contoh Pesan</button></div>' +
+        '<textarea id="l" maxlength="900" placeholder="Tuliskan ucapan dan doamu di sini..."></textarea>' +
+        '<div class="hint">Pisahkan paragraf dengan menekan Enter dua kali.</div>' +
+      '</div>' +
+      '<div class="field-row" style="margin-top:12px;">' +
+        '<div class="field-col"><label for="s">Nama Pengirim</label><input type="text" id="s" maxlength="40" placeholder="Namamu / Panggilan"></div>' +
+        '<div class="field-col"><label for="r">Hubungan / Peran</label><input type="text" id="r" maxlength="30" placeholder="Mis. Sahabatmu"></div>' +
+      '</div>' +
+      '<div class="role-suggestions" id="role-box"><span class="role-lbl">Pilihan Cepat:</span><div class="role-chips" id="role-chips"></div></div>' +
+    '</div>' +
+
+    '<div class="form-sec form-sec-action">' +
+      '<div class="row" style="margin-top:0"><button class="btn btn-main" id="go" type="button">Buat link kartu &rarr;</button></div>' +
+      '<div class="share" id="share"><label for="lk">Link kartu siap dikirim</label><input type="text" id="lk" readonly>' +
+      '<div class="row"><button class="btn" id="cp" type="button">Salin link</button>' +
+      '<a class="btn ghost" id="wa" target="_blank" rel="noopener" href="#">WhatsApp</a>' +
+      '<button class="btn ghost hide" id="nat" type="button">Bagikan</button>' +
+      '<button class="btn ghost" id="pvw" type="button">Coba sebagai penerima</button></div>' +
+      '<div class="hint" id="hn"></div></div>' +
+    '</div>' +
+
     '</div>' +
     '<div class="pv"><div class="tabs"><button class="chip" data-v="cover" type="button">Sampul</button>' +
     '<button class="chip" data-v="inside" type="button">Isi surat</button></div><div class="stage" id="pc"></div></div>' +
@@ -258,19 +292,53 @@ function builder() {
   tms.onclick = function (e) { var b = e.target.closest('.tm'); if (b) { S.t = b.dataset.t; draw(); } };
 
   ['n', 'd', 'm', 'h', 'l', 's', 'r'].forEach(function (k) {
-    var el = $('#' + k); el.value = S[k] || '';
-    el.oninput = function () { S[k] = el.value; draw(); };
+    var el = $('#' + k); if (el) { el.value = S[k] || ''; el.oninput = function () { S[k] = el.value; draw(); }; }
+  });
+
+  document.querySelectorAll('[data-target-tab]').forEach(function (sec) {
+    var tab = sec.dataset.targetTab;
+    sec.querySelectorAll('input, textarea, .drop').forEach(function (inp) {
+      inp.addEventListener('focus', function () { if (S.v !== tab) { S.v = tab; draw(); } });
+      inp.addEventListener('click', function () { if (S.v !== tab) { S.v = tab; draw(); } });
+    });
   });
 
   document.querySelectorAll('[data-e]').forEach(function (b) {
     b.onclick = function () {
       var presets = Object.keys(CONFIG.events).map(function (k) { return CONFIG.events[k].milestone; });
       S.e = b.dataset.e;
-      if (presets.indexOf(S.m) > -1) S.m = CONFIG.events[S.e].milestone;
-      $('#m').value = S.m; draw();
+      if (!S.m || presets.indexOf(S.m) > -1) {
+        S.m = CONFIG.events[S.e].milestone || '';
+        $('#m').value = S.m;
+      }
+      draw();
     };
   });
   document.querySelectorAll('.tabs [data-v]').forEach(function (b) { b.onclick = function () { S.v = b.dataset.v; draw(); }; });
+
+  var roleBox = $('#role-box');
+  if (roleBox) {
+    roleBox.onclick = function (e) {
+      var b = e.target.closest('.role-chip');
+      if (b) {
+        S.r = b.dataset.role;
+        $('#r').value = S.r;
+        S.v = 'inside';
+        draw();
+      }
+    };
+  }
+
+  var btnTpl = $('#btn-tpl');
+  if (btnTpl) {
+    btnTpl.onclick = function () {
+      var ev = CONFIG.events[S.e] || CONFIG.events.birthday;
+      if (ev.tplHead) { S.h = ev.tplHead; $('#h').value = S.h; }
+      if (ev.tplLetter) { S.l = ev.tplLetter; $('#l').value = S.l; }
+      S.v = 'inside';
+      draw();
+    };
+  }
 
   var ph = $('#ph'), dp = $('#drop');
   ph.onchange = function () { if (ph.files[0]) loadPhoto(ph.files[0]); };
@@ -297,7 +365,23 @@ function draw() {
   document.querySelectorAll('[data-e]').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.e === S.e); });
   document.querySelectorAll('.tabs [data-v]').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.v === S.v); });
   document.querySelectorAll('.tm').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.t === S.t); });
+
   $('#dw').classList.toggle('hide', S.e !== 'graduation');
+
+  var eventMeta = CONFIG.events[S.e] || CONFIG.events.birthday;
+  var mLbl = $('#m-lbl'), mInp = $('#m'), mHnt = $('#m-hint'), hInp = $('#h');
+  if (mLbl) mLbl.innerHTML = esc(eventMeta.mLabel || 'Keterangan Khusus') + ' <span class="badge-tag">Lencana Foto</span>';
+  if (mInp) mInp.placeholder = eventMeta.mPh || 'Contoh: 24 Tahun atau Angkatan 2026';
+  if (mHnt) mHnt.textContent = eventMeta.mHint || 'Angka yang kamu isi otomatis muncul di pin lencana foto sampul!';
+  if (hInp) hInp.placeholder = eventMeta.hPh || 'Kutipan berkesan di dalam kartu...';
+
+  var rChips = $('#role-chips');
+  if (rChips && eventMeta.roles) {
+    rChips.innerHTML = eventMeta.roles.map(function (role) {
+      return '<button type="button" class="role-chip" data-role="' + esc(role) + '">' + esc(role) + '</button>';
+    }).join('');
+  }
+
   $('#lc').textContent = (S.l || '').length + '/900';
   $('#th').innerHTML = S.p ? '<img alt="" src="' + S.p + '">' : '+';
   $('#rm').classList.toggle('hide', !S.p);
